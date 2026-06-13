@@ -8,11 +8,13 @@ RUN apt-get update && apt-get install -y \
     zip \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
 COPY . .
+
+RUN php -v
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
