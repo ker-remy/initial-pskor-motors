@@ -20,6 +20,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chmod -R 775 storage bootstrap/cache
 
+RUN a2dismod mpm_event || true && a2dismod mpm_worker || true && a2enmod mpm_prefork
 RUN a2enmod rewrite
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
